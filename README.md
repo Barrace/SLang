@@ -43,11 +43,16 @@ Non-capitalized words and symbols are keywords/symbols that must appear as shown
       * __prim1's may only take 1 operand, no more, no less__
     * prim1 operator list:
       1. add1
-      2. ~       //negation operator for ints
-      3. not     //negation operator for booleans
-      4. hd      //returns the first element of a list
-      5. tl      //returns a list that is the input list without the first element
-      6. isNull  //takes a list and returns true if it's empty, false if not
+      2. ~  
+        * negation operator for ints
+      3. not     
+        * negation operator for booleans
+      4. hd      
+        * returns the first element of a list
+      5. tl      
+        * returns a list that is the input list without the first element
+      6. isNull  
+        * takes a list and returns true if it's empty, false if not
     * prim2 -
       * (OPERAND_1  OPERATOR  OPERAND_2)
       * __prim2's may only take 2 operands, no more, no less__
@@ -56,12 +61,16 @@ Non-capitalized words and symbols are keywords/symbols that must appear as shown
         2. *
         3. -
         4. /
-        5. %     //remainder, or modulus operator
+        5. %     
+          * remainder, or modulus operator
         6. >
         7. <
-        8. ===   //checks equality
-        9. ::    //construct function. Adds a number to the front of a list
-        10. ->    //filter funtion. applies a true/false function to every element of a list and returns the list of elements in which            it returned true for.
+        8. ===   
+          * checks equality
+        9. ::    
+          * construct function. Adds a number to the front of a list
+        10. ->    
+          * filter funtion. applies a true/false function to every element of a list and returns the list of elements in which            it returned true for.
     * if statements:
       * if BOOL_RETURNING_EXPRESSION then EXECUTE_THIS_IF_TRUE else EXECUTE_THIS_IF_FALSE 
 
