@@ -47,7 +47,6 @@ SLang_v1:
       hd      //returns the first element of a list
       tl      //returns a list that is the input list without the first element
       isNull  //takes a list and returns true if it's empty, false if not
-      
     prim2 -
       (OPERAND_1  OPERATOR  OPERAND_2)
       **prim2's may only take 2 operands, no more, no less**
