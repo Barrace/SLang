@@ -1,5 +1,12 @@
 /* description: Grammar for Slang 2 */
 
+/*
+   Code is property of Dr. David Furcy of University of
+   Wisconsin - Oshkosh. Additions and features implemented by
+   and are property of Alec J. Healy of University of 
+   Wisconsin - Oshkosh.
+*/
+
 /* lexical grammar */
 %lex
 
