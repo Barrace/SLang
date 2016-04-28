@@ -80,7 +80,7 @@ Non-capitalized words and symbols are keywords/symbols that must appear as shown
 
   * let block
     * syntactic sugar for an anonymous application expression
-    * let BINDING in BODY end
+    * let BINDINGS in BODY end
   * sequencing
     * semicolons attached to every exp in let body besides the last one
   * references
