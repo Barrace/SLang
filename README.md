@@ -74,5 +74,35 @@ Non-capitalized words and symbols are keywords/symbols that must appear as shown
     * if statements:
       * if BOOL_RETURNING_EXPRESSION then EXECUTE_THIS_IF_TRUE else EXECUTE_THIS_IF_FALSE 
 
-###SLang_v2(IN_PROGRESS):
+
+###SLang_v2
+  all features from v1, along with..
+
+  * let block
+    * syntactic sugar for an anonymous application expression
+    * let BINDING in BODY end
+  * sequencing
+    * semicolons attached to every exp in let body besides the last one
+  * references
+    * environment now binds vars to references to vals instead of directly to vals
+  * assignment expression
+    * assigning a variable name to an expression using static binding in the environment
+    * set VAR = EXP
+  * print expression
+    * prints to the console the argument passed in
+    * print(EXP)
+  * lets block
+    * let block, excepts evaluates the bindings in order top down, asynchronously
+    * same syntax except "lets" instead of "let"
+  * letmr block
+    * same as lets block, except MUST take exactly 2 function expressions as bindings, and  accounts for recursion within the functions, or functions referencing eachother.
+    * syntax same as let except exactly 2 fn_exps as bindings and "letmr" instead of "let"
+  * for loop
+    * same as java/javascript for loop syntax, the body takes sequencing syntax, along with the 1 and 3 of: for (1; 2; 3) are optional.
+  * switch statement
+    * same as java/javascript switch statements, except the variable that the switch depends upon must be a number.
+
+
+
+###SLang_v3(IN_PROGRESS):
   IN DEVELOPMENT, STAY UPDATED! Thank you for using SLang!
