@@ -22,20 +22,32 @@
 
 \(
     \begin{array}{lcl}
-       < program > & ::= & < exp > \\
+       < program > & ::= & < decls >\  public\ class\ Driver\ extends < var\ exp > \{\\
+                   &     & method\ main()\ \{\  < exp > (\ ';'\ < exp >)^*\ \} \}\\
+   < decls >       & ::= & < class >^* \\
+   < class >       & ::= & class < var\ exp > extends < var\ exp >\ \{\ < ivars >\ < methods >\ \} \\
+   < ivars >       & ::= & (\ protected < var\ exp > )^*\\
+   < methods >     & ::= & < method >^*\\
+   < method >      & ::= & method\ < var\ exp >\ '('\ < formals >\ ')'\ \{\  < exp > (\ ';'\ < exp >)^*\ \} \\
        < exp >     & ::= &  < var\ exp > | < fn\ exp > | < app\ exp > | < intlit\ exp >  \\
                    &  |  & < papp1\ exp > | < papp2\ exp > | < if\ exp>  |  < let\ exp > \\
                    &  |  & < print\ exp > | < print2\ exp > |  < assign\ exp > \\
-   < fn\  exp >    & ::= & fn\quad '('\  < var\ exp >^*\ ')'\ =>\  < exp > \\
+                   &  |  & < new\ exp > | < this\ exp > | < method\ call> \\ 
+   < fn\  exp >    & ::= & fn\quad '('\  < formals >\  ')'\ =>\  < exp > \\
    < app\ exp >    & ::= & '('\  < exp >\   < exp >^*\ ')' \\
    < papp1\ exp >   & ::= & < prim1\ op >\  '('\  < exp >\  ')' \\
    < papp2\ exp >   & ::= & '('\  < exp >\ < prim2\ op >\   < exp >\  ')' \\
    < args >        & ::= & (  < exp >\   (\ ','\  < exp >  )^*\  )?\\
+   < formals >     & ::= & (< var\ exp > (',' < var\ exp>)^*)? \\
    < let\ exp >    & ::= & let\ (< var\ exp >\ =\ < exp >)^+\ in\ < exp > (\ ';'\ < exp >)^*\ end\\
    < print\ exp >  & ::= & print  < exp > \\
    < print2\ exp >  & ::= & print\  " < var exp > " ( ':'\ |\ < exp >) \\
    < assign\ exp > & ::= & set\ < var\ exp >\ =\ < exp > \\
    < if\ exp > & ::= & if < exp >\ then\ < exp >\ else\ < exp > \\
+   < this\ exp >   & ::= & this \\
+   < new\ exp >    & ::= & new\ < var\ exp >\ '('\ < csargs >\ ')'\\
+   < method\ call > & ::= & call\ < exp >\ '.'\ < var\ exp >\ '('\ < csargs >\ ')'\\
+   < csargs >      & ::= & ( < exp > ( ','\ < exp > )^*)?\\
 
 
     \end{array}

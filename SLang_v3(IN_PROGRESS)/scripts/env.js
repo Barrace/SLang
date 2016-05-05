@@ -1,12 +1,5 @@
 /* global SLang : true */
 
-/*
-   Code is property of Dr. David Furcy of University of
-   Wisconsin - Oshkosh. Additions and features implemented by
-   and are property of Alec J. Healy of University of 
-   Wisconsin - Oshkosh.
-*/
-
 (function(){
 
 "use strict";
@@ -16,7 +9,7 @@
 var exports = {};
 
 // denoted values in the interpreted language SLang 1
-//  Num, Clo, Bool
+//  Num, Clo, Bool, Object, ClassName
 
 function createNum(n) {
     return ["Num",n];
@@ -26,10 +19,10 @@ function isNum(value) {
 }
 function getNumValue(value) {
     if (isNum(value)) {
-        return value[1];
+	return value[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getNumValue is not a Num value.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getNumValue is not a Num value.");
     }
 }
 function createClo(params,body,env) {
@@ -40,26 +33,26 @@ function isClo(value) {
 }
 function getCloParams(value) {
     if (isClo(value)) {
-        return value[1];
+	return value[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getCloParams is not a Clo value.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getCloParams is not a Clo value.");
     }
 }
 function getCloBody(value) {
     if (isClo(value)) {
-        return value[2];
+	return value[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getCloBody is not a Clo value.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getCloBody is not a Clo value.");
     }
 }
 function getCloEnv(value) {
     if (isClo(value)) {
-        return value[3];
+	return value[3];
     } else {
-        throw new Error("Interpreter error: "  +
-                  "The argument of getCloEnv is not a Clo value.");
+	throw new Error("Interpreter error: "  +
+		      	"The argument of getCloEnv is not a Clo value.");
     }
 }
 function createBool(n) {
@@ -70,10 +63,38 @@ function isBool(value) {
 }
 function getBoolValue(value) {
     if (isBool(value)) {
-        return value[1];
+	return value[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getBoolValue is not a Bool value.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getBoolValue is not a Bool value.");
+    }
+}
+function createObject(state) {
+    return ["Obj",state];
+}
+function isObject(v) {
+    return v[0] === "Obj";
+}
+function getObjectState(obj) {
+    if (isObject(obj)) {
+	return obj[1];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getObjectState is not an Object value.");
+    }
+}
+function createClassName(name) {
+    return ["ClassName",name];
+}
+function isClassName(cn) {
+    return cn[0] === "ClassName";
+}
+function getClassNameName(cn) {
+    if (isClassName(cn)) {
+	return cn[1];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getClassNameName is not a ClassName value.");
     }
 }
 
@@ -94,18 +115,18 @@ function isEnv(env) {
 }
 function getEnvBindings (env) {
     if (isEnv(env)) {
-        return env[1];
+	return env[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getEnvBindings is not an environment.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getEnvBindings is not an environment.");
     }
 }
 function getEnvEnv (env) {
     if (isEnv(env)) {
-        return env[2];
+	return env[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getEnvEnv is not an environment.");	
+	throw new Error("Interpreter error: "  +
+			"The argument of getEnvEnv is not an environment.");	
     }
 }
 
@@ -113,17 +134,16 @@ function getEnvEnv (env) {
 function getReference(v,bindings) {
     var value = bindings.filter(function (p) { return p[0]===v; });
     if (value.length === 0) {
-        return undefined;
+	return undefined;
     } else {
-        return value[0][1];
+	return value[0][1];
     }
 }
 function lookupReference (e,variable) {
     if (isEmptyEnv(e)) {
-        throw new Error("Runtime error: No binding for " + variable);
+	throw new Error("Runtime error: No binding for " + variable);
     } else {
-        return getReference(variable,e[1]) || 
-                            lookupReference(e[2],variable);
+	return getReference(variable,e[1]) || lookupReference(e[2],variable);
     }
 }
 
@@ -135,17 +155,16 @@ function lookup (e,variable) {
 function updateWithReferences(e,variables,refs) {
     var bindings =  [];
     for(var index = 0; index < variables.length; index++) {
-        bindings.push( [ variables[index] , refs[index] ]);
+	bindings.push( [ variables[index] , refs[index] ]);
     }
     return createEnv(bindings,e);
 }
 function update(e,variables,values) {
     return updateWithReferences(e,variables,
-                   values.map(function (v) { return [v]; }));
+			       values.map(function (v) { return [v]; }));
 }
 function initEnv() {
-    return update(createEmptyEnv(), ["x","y"], [ createNum(5), 
-                                                 createNum(6)]);
+    return update(createEmptyEnv(), ["x","y"], [ createNum(5), createNum(6)]);
 }
 
 exports.createNum = createNum;
@@ -171,6 +190,13 @@ exports.initEnv = initEnv;
 exports.createBool = createBool;
 exports.isBool = isBool;
 exports.getBoolValue = getBoolValue;
+exports.createObject = createObject;
+exports.isObject = isObject;
+exports.getObjectState = getObjectState;
+exports.createClassName = createClassName;
+exports.isClassName = isClassName;
+exports.getClassNameName = getClassNameName;
+
 
 SLang.env = exports;
 

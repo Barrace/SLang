@@ -11,14 +11,14 @@
     function go(n) {
 	document.getElementById('interpreterinput').value=SLang.samples[n][1]; 
 	document.getElementById('interpreteroutput').value=
-	    SLang.interpret(document.getElementById('interpreterinput').value,"byval");
+	    SLang.interpret(document.getElementById('interpreterinput').value);
     }
 
 
     function openGrammarWindow() {
 	if (SLang.grammarWindow === null || SLang.grammarWindow.closed) {
 	    window.open('grammar.html', 'SLang1_Grammar ',
-			'scrollbars=yes,height=650,width=700,resizable=yes').focus();
+			'scrollbars=yes,height=600,width=700,resizable=yes').focus();
 	}
     }
 

@@ -1,32 +1,34 @@
 /* global SLang : true */
 
-/*
-   Code is property of Dr. David Furcy of University of
-   Wisconsin - Oshkosh. Additions and features implemented by
-   and are property of Alec J. Healy of University of 
-   Wisconsin - Oshkosh.
-*/
-
 (function (){
 
 "use strict";
 
 var exports = {};
 
-function createProgram(e) {
-    return ["Program", e]; 
+function createProgram(decls,mainBlock) {
+    return ["Program", decls, mainBlock]; 
 }
-function isProgram(e) { 
-    return e[0] === "Program"; 
+function isProgram(p) { 
+    return p[0] === "Program"; 
 }
-function getProgramExp(e) { 
-    if (isProgram(e)) {
-        return e[1];
+function getProgramDecls(p) { 
+    if (isProgram(p)) {
+	return p[1];
     } else {
-        throw new Error("Interpreter error: "  +
-                "The argument of getProgramExp is not a program.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getProgramDecls is not a program.");
     }
 }				       
+function getProgramMainBody(p) { 
+    if (isProgram(p)) {
+	return p[2];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getProgramMainBody is not a program.");
+    }
+}				       
+
 function createVarExp(v) { 
     return ["VarExp", v]; 
 }
@@ -35,10 +37,10 @@ function isVarExp(e) {
 }
 function getVarExpId(e) { 
     if (isVarExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getVarExpId is not a VarExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getVarExpId is not a VarExp.");
     }
 }
 function createIntExp(n) {
@@ -49,54 +51,54 @@ function isIntExp(e) {
 }
 function getIntExpValue(e) { 
     if (isIntExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-                "The argument of getIntExpValue is not an IntExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getIntExpValue is not an IntExp.");
     }
 }
 function createFnExp(params,body) {
-    return ["FnExp", params, body];
+    return ["FnExp",params,body];
 }
 function isFnExp(e) { 
     return e[0] === "FnExp"; 
 }
 function getFnExpParams(e) { 
     if (isFnExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-                "The argument of getFnExpParams is not an FnExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getFnExpParams is not an FnExp.");
     }
 }
 function getFnExpBody(e) { 
     if (isFnExp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-                    "The argument of getFnExpBody is not an FnExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getFnExpBody is not an FnExp.");
     }
 }
 function createAppExp(fn,args) {
-    return ["AppExp", fn, args];
+    return ["AppExp",fn,args];
 }
 function isAppExp(e) { 
     return e[0] === "AppExp"; 
 }
 function getAppExpFn(e) { 
     if (isAppExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-                "The argument of getAppExpFn is not an AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getAppExpFn is not an AppExp.");
     }
 }
 function getAppExpArgs(e) { 
     if (isAppExp(e)) {
-        return e[2].slice(1); //eliminate the first element           (i.e., "args")
+	return e[2].slice(1); // eliminate the first element (i.e., "args")
     } else {
-        throw new Error("Interpreter error: "  +
-                "The argument of getAppExpArgs is not an AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getAppExpArgs is not an AppExp.");
     }
 }
 function createPrim1AppExp(prim,arg) {
@@ -107,18 +109,18 @@ function isPrim1AppExp(e) {
 }
 function getPrim1AppExpPrim(e) { 
     if (isPrim1AppExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrim1AppExpPrim is not a Prim1AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrim1AppExpPrim is not a Prim1AppExp.");
     }
 }
 function getPrim1AppExpArg(e) { 
     if (isPrim1AppExp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrim1AppExpArg is not a Prim1AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrim1AppExpArg is not a Prim1AppExp.");
     }
 }
 function createPrim2AppExp(prim,arg1,arg2) {
@@ -129,26 +131,26 @@ function isPrim2AppExp(e) {
 }
 function getPrim2AppExpPrim(e) { 
     if (isPrim2AppExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrim2AppExpPrim is not a Prim2AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrim2AppExpPrim is not a Prim2AppExp.");
     }
 }
 function getPrim2AppExpArg1(e) { 
     if (isPrim2AppExp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrim2AppExpArg is not a Prim2AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrim2AppExpArg is not a Prim2AppExp.");
     }
 }
 function getPrim2AppExpArg2(e) { 
     if (isPrim2AppExp(e)) {
-        return e[3];
+	return e[3];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrim2AppExpArg is not a Prim2AppExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrim2AppExpArg is not a Prim2AppExp.");
     }
 }
 function createPrintExp(e) {
@@ -159,10 +161,10 @@ function isPrintExp(e) {
 }
 function getPrintExpExp(e) { 
     if (isPrintExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getPrintExpExp is not a PrintExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrintExpExp is not a PrintExp.");
     }
 }
 function createPrint2Exp(s,e) {
@@ -173,18 +175,18 @@ function isPrint2Exp(e) {
 }
 function getPrint2ExpString(e) { 
     if (isPrint2Exp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The arg of getPrint2ExpString is not a Print2Exp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrint2ExpString is not a Print2Exp.");
     }
 }
 function getPrint2ExpExp(e) { 
     if (isPrint2Exp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getPrint2ExpExp is not a Print2Exp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getPrint2ExpExp is not a Print2Exp.");
     }
 }
 
@@ -196,18 +198,18 @@ function isAssignExp(e) {
 }
 function getAssignExpVar(e) { 
     if (isAssignExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getAssignExpVar is not an AssignExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getAssignExpVar is not an AssignExp.");
     }
 }
 function getAssignExpRHS(e) { 
     if (isAssignExp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getAssignExpRHS is not an AssignExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getAssignExpRHS is not an AssignExp.");
     }
 }
 function createBlock(list) {
@@ -218,10 +220,10 @@ function isBlock(b) {
 }
 function getBlockList(b) { 
     if (isBlock(b)) {
-        return b[1];
+	return b[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getBlockList is not a Block.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getBlockList is not a Block.");
     }
 }
 function createIfExp(condExp,thenExp,elseExp) {
@@ -232,88 +234,159 @@ function isIfExp(e) {
 }
 function getIfExpCond(e) { 
     if (isIfExp(e)) {
-        return e[1];
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getIfExpCond is not an IfExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getIfExpCond is not an IfExp.");
     }
 }
 function getIfExpThen(e) { 
     if (isIfExp(e)) {
-        return e[2];
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getIfExpThen is not an IfExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getIfExpThen is not an IfExp.");
     }
 }
 function getIfExpElse(e) { 
     if (isIfExp(e)) {
-        return e[3];
+	return e[3];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getIfExpElse is not an IfExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getIfExpElse is not an IfExp.");
     }
 }
-function createLetsExp(b1,b2) {
-    return ["LetsExp", [b1,b2]];
+function createThisExp() { 
+    return ["ThisExp"]; 
 }
-function isLetsExp(e) {
-    return e[0] === "LetsExp";
+function isThisExp(e) { 
+    return e[0] === "ThisExp"; 
 }
-function getLetsExpValue(e) {
-    if (isLetsExp(e)) {
-        return e[1];
+function createNewExp(v,args) { 
+    return ["NewExp", v, args]; 
+}
+function isNewExp(e) { 
+    return e[0] === "NewExp"; 
+}
+function getNewExpClass(e) { 
+    if (isNewExp(e)) {
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getLetsExpValue is not a LetsExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getNewExpClass is not a NewExp.");
     }
 }
-function createLetmrExp(f1,f2,b) {
-    return ["LetmrExp", [f1,f2,b]];
-}
-function isLetmrExp(e) {
-    return e[0] === "LetmrExp";
-}
-function getLetmrExpValue(e) {
-    if (isLetmrExp(e)) {
-        return e[1];
+function getNewExpArgs(e) { 
+    if (isNewExp(e)) {
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getLetmrExpValue is not a LetmrExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getNewExpArgs is not a NewExp.");
     }
 }
-function createForExp(e1,e2,e3,b) {
-    return ["ForExp", [e1,e2,e3,b]];
+function createMethodCall(obj,method,args) { 
+    return ["MethodCall", obj, method, args]; 
 }
-function isForExp(e) {
-    return e[0] === "ForExp";
+function isMethodCall(e) { 
+    return e[0] === "MethodCall"; 
 }
-function getForExpValue(e) {
-    if (isForExp(e)) {
-        return e[1];
+function getMethodCallObject(e) { 
+    if (isMethodCall(e)) {
+	return e[1];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getForExpValue is not a ForExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodCallObject is not a MethodCall.");
     }
 }
-function createSwitchExp(v,cases,defaultCase) {
-    return ["SwitchExp", [v,cases,defaultCase]];
-}
-function isSwitchExp(e) {
-    return e[0] === "SwitchExp";
-}
-function getSwitchExpValue(e) {
-    if (isSwitchExp(e)) {
-        return e[1];
+function getMethodCallMethod(e) { 
+    if (isMethodCall(e)) {
+	return e[2];
     } else {
-        throw new Error("Interpreter error: "  +
-            "The argument of getSwitchExpValue is not a SwitchExp.");
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodCallMethod is not a MethodCall.");
     }
 }
+function getMethodCallArgs(e) { 
+    if (isMethodCall(e)) {
+	return e[3];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodCallArgs is not a MethodCall.");
+    }
+}
+function createClass(name,superClass,ivars,methods) { 
+    return ["Class", name, superClass, ivars, methods]; 
+}
+function isClass(c) { 
+    return c[0] === "Class"; 
+}
+function getClassName(c) { 
+    if (isClass(c)) {
+	return c[1];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getClassName is not a Class.");
+    }
+}
+function getClassSuperClass(c) { 
+    if (isClass(c)) {
+	return c[2];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getClassSuperClass is not a Class.");
+    }
+}
+function getClassIvars(c) { 
+    if (isClass(c)) {
+	return c[3];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getClassIvars is not a Class.");
+    }
+}
+function getClassMethods(c) { 
+    if (isClass(c)) {
+	return c[4];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getClassMethods is not a Class.");
+    }
+}
+function createMethod(name,params,body) {
+    return ["Method", name, params, body]; 
+}
+function isMethod(m) { 
+    return m[0] === "Method"; 
+}
+function getMethodName(m) { 
+    if (isMethod(m)) {
+	return m[1];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodName is not a Method.");
+    }
+}				      
+function getMethodParams(m) { 
+    if (isMethod(m)) {
+	return m[2];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodParams is not a Method.");
+    }
+}				      
+function getMethodBody(m) { 
+    if (isMethod(m)) {
+	return m[3];
+    } else {
+	throw new Error("Interpreter error: "  +
+			"The argument of getMethodBody is not a Method.");
+    }
+}				      
 
 exports.createProgram = createProgram;
 exports.isProgram = isProgram;
-exports.getProgramExp = getProgramExp;
+exports.getProgramDecls = getProgramDecls;
+exports.getProgramMainBody = getProgramMainBody;
 exports.createVarExp = createVarExp;
 exports.isVarExp = isVarExp;
 exports.getVarExpId = getVarExpId;
@@ -356,17 +429,28 @@ exports.isIfExp = isIfExp;
 exports.getIfExpCond = getIfExpCond;
 exports.getIfExpThen = getIfExpThen;
 exports.getIfExpElse = getIfExpElse;
-exports.createLetsExp = createLetsExp;
-exports.isLetsExp = isLetsExp;
-exports.getLetsExpValue = getLetsExpValue;
-exports.createLetmrExp = createLetmrExp;
-exports.isLetmrExp = isLetmrExp;
-exports.getLetmrExpValue = getLetmrExpValue;
-exports.createForExp = createForExp;
-exports.isForExp = isForExp;
-exports.getForExpValue = getForExpValue;
-exports.createSwitchExp = createSwitchExp;
-exports.isSwitchExp = isSwitchExp;
-exports.getSwitchExpValue = getSwitchExpValue;
+exports.createThisExp = createThisExp;
+exports.isThisExp = isThisExp;
+exports.createNewExp = createNewExp;
+exports.isNewExp = isNewExp;
+exports.getNewExpClass = getNewExpClass;
+exports.getNewExpArgs = getNewExpArgs;
+exports.createMethodCall = createMethodCall;
+exports.isMethodCall = isMethodCall;
+exports.getMethodCallObject = getMethodCallObject;
+exports.getMethodCallMethod = getMethodCallMethod;
+exports.getMethodCallArgs = getMethodCallArgs;
+exports.createClass = createClass;
+exports.isClass = isClass;
+exports.getClassName = getClassName;
+exports.getClassSuperClass = getClassSuperClass;
+exports.getClassIvars = getClassIvars;
+exports.getClassMethods = getClassMethods;
+exports.createMethod = createMethod;
+exports.isMethod = isMethod;
+exports.getMethodName = getMethodName;
+exports.getMethodParams = getMethodParams;
+exports.getMethodBody = getMethodBody;
+
 SLang.absyn = exports;
 }());
