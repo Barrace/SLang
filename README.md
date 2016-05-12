@@ -103,6 +103,13 @@ Non-capitalized words and symbols are keywords/symbols that must appear as shown
     * same as java/javascript switch statements, except the variable that the switch depends upon must be a number.
 
 
+###SLang_v3:
+  
+  
+  SLang_v3 is an Object-Oriented version of SLang. If you are looking for a functional language, try SLang v2. For a fully functional language, try SLang_v1. SLang_v3 is imperative, it has all features of SLang_v2, in an object oriented environment.
+  
+  For example programs of SLang_v3, please click "show test programs" in the interpreter.html
+  
 
-###SLang_v3(IN_PROGRESS):
+###SLang_v4(IN_PROGRESS):
   IN DEVELOPMENT, STAY UPDATED! Thank you for using SLang!
