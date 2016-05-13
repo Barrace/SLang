@@ -1,4 +1,7 @@
 /* description: Grammar for Slang 3 */
+/*
+	AJ Healy && Andrew Stagg
+*/
 
 /* lexical grammar */
 %lex
@@ -8,8 +11,8 @@ LETTER		      [a-zA-Z]
 
 %%
 
-\s+                                   { /* skip whitespace */ }
-"fn"				      { return 'FN'; }
+\s+                               { /* skip whitespace */ }
+"fn"				              { return 'FN'; }
 "("                   		      { return 'LPAREN'; }
 ")"                   		      { return 'RPAREN'; }
 "+"                   		      { return 'PLUS'; }
@@ -22,37 +25,38 @@ LETTER		      [a-zA-Z]
 "==="                  		      { return 'EQ'; }
 "~"                   		      { return 'NEG'; }
 "not"                  		      { return 'NOT'; }
-"add1"                                { return 'ADD1'; }
-"let"                                 { return 'LET'; }
-"in"                                  { return 'IN'; }
-"end"                                 { return 'END'; }
-"print"                               { return 'PRINT'; }
-"set"                                 { return 'SET'; }
+"add1"                            { return 'ADD1'; }
+"let"                             { return 'LET'; }
+"in"                              { return 'IN'; }
+"end"                             { return 'END'; }
+"print"                           { return 'PRINT'; }
+"set"                             { return 'SET'; }
 ";"                   		      { return 'SEMICOLON'; }
-':'                                   { return 'COLON'; }
-'"'                                   { return 'DQUOTE'; }
+':'                               { return 'COLON'; }
+'"'                               { return 'DQUOTE'; }
 ","                   		      { return 'COMMA'; }
 "=>"                   		      { return 'THATRETURNS'; }
 "if"                   		      { return 'IF'; }
 "then"                   	      { return 'THEN'; }
 "else"                   	      { return 'ELSE'; }
-"="                                   { return 'EQ'; }
-"{"                                   { return 'LBRACE'; }
-"}"                                   { return 'RBRACE'; }
-"public"                              { return 'PUBLIC'; }
-"class"                               { return 'CLASS'; }
-"extends"                             { return 'EXTENDS'; }
-"method"                              { return 'METHOD'; }
-"main"                                { return 'MAIN'; }
-"protected"                           { return 'PROTECTED'; }
-"Driver"                              { return 'DRIVER'; }
-"new"                                 { return 'NEW'; }
-"."                                   { return 'DOT'; }
-"this"                                { return 'THIS'; }
-"call"                                { return 'CALL'; }
+"="                               { return 'EQ'; }
+"{"                               { return 'LBRACE'; }
+"}"                               { return 'RBRACE'; }
+"public"                          { return 'PUBLIC'; }
+"class"                           { return 'CLASS'; }
+"extends"                         { return 'EXTENDS'; }
+"method"                          { return 'METHOD'; }
+"main"                            { return 'MAIN'; }
+"protected"                       { return 'PROTECTED'; }
+"Driver"                          { return 'DRIVER'; }
+"new"                             { return 'NEW'; }
+"."                               { return 'DOT'; }
+"this"                            { return 'THIS'; }
+"super"                           { return 'SUPER'; }
+"call"                            { return 'CALL'; }
 <<EOF>>               		      { return 'EOF'; }
-{LETTER}({LETTER}|{DIGIT}|_)*  	      { return 'VAR'; }
-{DIGIT}+                              { return 'INT'; }
+{LETTER}({LETTER}|{DIGIT}|_)*  	  { return 'VAR'; }
+{DIGIT}+                          { return 'INT'; }
 .                     		      { return 'INVALID'; }
 
 /lex
@@ -98,20 +102,21 @@ method
           { $$ = SLang.absyn.createMethod($2, $4, $7); }
     ;
 exp
-    : var_exp       { $$ = $1; }
-    | intlit_exp    { $$ = $1; }
-    | fn_exp        { $$ = $1; }
-    | app_exp       { $$ = $1; }    
-    | prim1_app_exp { $$ = $1; }
-    | prim2_app_exp { $$ = $1; }
-    | if_exp        { $$ = $1; }
-    | let_exp       { $$ = $1; }
-    | print_exp     { $$ = $1; }
-    | print2_exp    { $$ = $1; }
-    | assign_exp    { $$ = $1; }
-    | this_exp      { $$ = $1; }
-    | new_exp       { $$ = $1; }
-    | method_call   { $$ = $1; }
+    : var_exp           { $$ = $1; }
+    | intlit_exp        { $$ = $1; }
+    | fn_exp            { $$ = $1; }
+    | app_exp           { $$ = $1; }    
+    | prim1_app_exp     { $$ = $1; }
+    | prim2_app_exp     { $$ = $1; }
+    | if_exp            { $$ = $1; }
+    | let_exp           { $$ = $1; }
+    | print_exp         { $$ = $1; }
+    | print2_exp        { $$ = $1; }
+    | assign_exp        { $$ = $1; }
+    | this_exp          { $$ = $1; }
+    | new_exp           { $$ = $1; }
+    | method_call       { $$ = $1; }
+    | super_method_call { $$ = $1; }
     ;
 
 this_exp
@@ -123,9 +128,15 @@ new_exp
           { $$ = SLang.absyn.createNewExp($2,$4); }
     ;
 
+
 method_call
     : CALL exp DOT VAR LPAREN csargs RPAREN
           { $$ = SLang.absyn.createMethodCall($2,$4,$6); }
+    ;
+
+super_method_call
+    : CALL SUPER DOT VAR LPAREN csargs RPAREN
+          { $$ = SLang.absyn.createSuperMethodCall($4, $6); }
     ;
 
 var_exp
@@ -173,7 +184,7 @@ bindings
     | VAR EQ exp bindings
            { var vars = $4[0];  vars.unshift($1);
              var vals = $4[1];  vals.unshift($3);
-	     $$ = [ vars, vals ];
+         $$ = [ vars, vals ];
            }  
     ;
 
@@ -187,7 +198,7 @@ formals
     | VAR moreformals 
         { var result;
           if ($2 === [ ])
-	     result = [ $1 ];
+         result = [ $1 ];
           else {
              $2.unshift($1);
              result = $2;
@@ -241,7 +252,7 @@ args
     | exp args
         { var result;
           if ($2 === [ ])
-	     result = [ $1 ];
+         result = [ $1 ];
           else {
              $2.unshift($1);
              result = $2;

@@ -1,4 +1,7 @@
 /* global SLang : true */
+/*
+	AJ Healy && Andrew Stagg
+*/
 
 (function (){
 
@@ -14,18 +17,18 @@ function isProgram(p) {
 }
 function getProgramDecls(p) { 
     if (isProgram(p)) {
-	return p[1];
+    return p[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getProgramDecls is not a program.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getProgramDecls is not a program.");
     }
 }				       
 function getProgramMainBody(p) { 
     if (isProgram(p)) {
-	return p[2];
+    return p[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getProgramMainBody is not a program.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getProgramMainBody is not a program.");
     }
 }				       
 
@@ -37,10 +40,10 @@ function isVarExp(e) {
 }
 function getVarExpId(e) { 
     if (isVarExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getVarExpId is not a VarExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getVarExpId is not a VarExp.");
     }
 }
 function createIntExp(n) {
@@ -51,10 +54,10 @@ function isIntExp(e) {
 }
 function getIntExpValue(e) { 
     if (isIntExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getIntExpValue is not an IntExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getIntExpValue is not an IntExp.");
     }
 }
 function createFnExp(params,body) {
@@ -65,18 +68,18 @@ function isFnExp(e) {
 }
 function getFnExpParams(e) { 
     if (isFnExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getFnExpParams is not an FnExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getFnExpParams is not an FnExp.");
     }
 }
 function getFnExpBody(e) { 
     if (isFnExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getFnExpBody is not an FnExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getFnExpBody is not an FnExp.");
     }
 }
 function createAppExp(fn,args) {
@@ -87,18 +90,18 @@ function isAppExp(e) {
 }
 function getAppExpFn(e) { 
     if (isAppExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getAppExpFn is not an AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getAppExpFn is not an AppExp.");
     }
 }
 function getAppExpArgs(e) { 
     if (isAppExp(e)) {
-	return e[2].slice(1); // eliminate the first element (i.e., "args")
+    return e[2].slice(1); // eliminate the first element (i.e., "args")
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getAppExpArgs is not an AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getAppExpArgs is not an AppExp.");
     }
 }
 function createPrim1AppExp(prim,arg) {
@@ -109,18 +112,18 @@ function isPrim1AppExp(e) {
 }
 function getPrim1AppExpPrim(e) { 
     if (isPrim1AppExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrim1AppExpPrim is not a Prim1AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrim1AppExpPrim is not a Prim1AppExp.");
     }
 }
 function getPrim1AppExpArg(e) { 
     if (isPrim1AppExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrim1AppExpArg is not a Prim1AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrim1AppExpArg is not a Prim1AppExp.");
     }
 }
 function createPrim2AppExp(prim,arg1,arg2) {
@@ -131,26 +134,26 @@ function isPrim2AppExp(e) {
 }
 function getPrim2AppExpPrim(e) { 
     if (isPrim2AppExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrim2AppExpPrim is not a Prim2AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrim2AppExpPrim is not a Prim2AppExp.");
     }
 }
 function getPrim2AppExpArg1(e) { 
     if (isPrim2AppExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrim2AppExpArg is not a Prim2AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrim2AppExpArg is not a Prim2AppExp.");
     }
 }
 function getPrim2AppExpArg2(e) { 
     if (isPrim2AppExp(e)) {
-	return e[3];
+    return e[3];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrim2AppExpArg is not a Prim2AppExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrim2AppExpArg is not a Prim2AppExp.");
     }
 }
 function createPrintExp(e) {
@@ -161,10 +164,10 @@ function isPrintExp(e) {
 }
 function getPrintExpExp(e) { 
     if (isPrintExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrintExpExp is not a PrintExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrintExpExp is not a PrintExp.");
     }
 }
 function createPrint2Exp(s,e) {
@@ -175,18 +178,18 @@ function isPrint2Exp(e) {
 }
 function getPrint2ExpString(e) { 
     if (isPrint2Exp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrint2ExpString is not a Print2Exp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrint2ExpString is not a Print2Exp.");
     }
 }
 function getPrint2ExpExp(e) { 
     if (isPrint2Exp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getPrint2ExpExp is not a Print2Exp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getPrint2ExpExp is not a Print2Exp.");
     }
 }
 
@@ -198,18 +201,18 @@ function isAssignExp(e) {
 }
 function getAssignExpVar(e) { 
     if (isAssignExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getAssignExpVar is not an AssignExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getAssignExpVar is not an AssignExp.");
     }
 }
 function getAssignExpRHS(e) { 
     if (isAssignExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getAssignExpRHS is not an AssignExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getAssignExpRHS is not an AssignExp.");
     }
 }
 function createBlock(list) {
@@ -220,10 +223,10 @@ function isBlock(b) {
 }
 function getBlockList(b) { 
     if (isBlock(b)) {
-	return b[1];
+    return b[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getBlockList is not a Block.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getBlockList is not a Block.");
     }
 }
 function createIfExp(condExp,thenExp,elseExp) {
@@ -234,26 +237,26 @@ function isIfExp(e) {
 }
 function getIfExpCond(e) { 
     if (isIfExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getIfExpCond is not an IfExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getIfExpCond is not an IfExp.");
     }
 }
 function getIfExpThen(e) { 
     if (isIfExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getIfExpThen is not an IfExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getIfExpThen is not an IfExp.");
     }
 }
 function getIfExpElse(e) { 
     if (isIfExp(e)) {
-	return e[3];
+    return e[3];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getIfExpElse is not an IfExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getIfExpElse is not an IfExp.");
     }
 }
 function createThisExp() { 
@@ -270,18 +273,18 @@ function isNewExp(e) {
 }
 function getNewExpClass(e) { 
     if (isNewExp(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getNewExpClass is not a NewExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getNewExpClass is not a NewExp.");
     }
 }
 function getNewExpArgs(e) { 
     if (isNewExp(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getNewExpArgs is not a NewExp.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getNewExpArgs is not a NewExp.");
     }
 }
 function createMethodCall(obj,method,args) { 
@@ -292,26 +295,48 @@ function isMethodCall(e) {
 }
 function getMethodCallObject(e) { 
     if (isMethodCall(e)) {
-	return e[1];
+    return e[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodCallObject is not a MethodCall.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodCallObject is not a MethodCall.");
     }
 }
 function getMethodCallMethod(e) { 
     if (isMethodCall(e)) {
-	return e[2];
+    return e[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodCallMethod is not a MethodCall.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodCallMethod is not a MethodCall.");
     }
 }
 function getMethodCallArgs(e) { 
     if (isMethodCall(e)) {
-	return e[3];
+    return e[3];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodCallArgs is not a MethodCall.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodCallArgs is not a MethodCall.");
+    }
+}
+function createSuperMethodCall(method,args) {
+    return ["SuperMethodCall", method, args];
+}
+function isSuperMethodCall(e) {
+    return e[0] === "SuperMethodCall";
+}
+function getSuperMethodCallMethod(e) {
+    if (isSuperMethodCall(e)) {
+        return e[1];
+    } else {
+        throw new Error("Interpreter error: "  +
+            "The argument of getSuperMethodCallMethod is not a SuperMethodCall.");
+    }
+}
+function getSuperMethodCallArgs(e) {
+    if (isSuperMethodCall(e)) {
+        return e[2];
+    } else {
+        throw new Error("Interpreter error: "  +
+            "The argument of getSuperMethodCallArgs is not a SuperMethodCall.");
     }
 }
 function createClass(name,superClass,ivars,methods) { 
@@ -322,34 +347,34 @@ function isClass(c) {
 }
 function getClassName(c) { 
     if (isClass(c)) {
-	return c[1];
+    return c[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getClassName is not a Class.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getClassName is not a Class.");
     }
 }
 function getClassSuperClass(c) { 
     if (isClass(c)) {
-	return c[2];
+    return c[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getClassSuperClass is not a Class.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getClassSuperClass is not a Class.");
     }
 }
 function getClassIvars(c) { 
     if (isClass(c)) {
-	return c[3];
+    return c[3];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getClassIvars is not a Class.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getClassIvars is not a Class.");
     }
 }
 function getClassMethods(c) { 
     if (isClass(c)) {
-	return c[4];
+    return c[4];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getClassMethods is not a Class.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getClassMethods is not a Class.");
     }
 }
 function createMethod(name,params,body) {
@@ -360,26 +385,26 @@ function isMethod(m) {
 }
 function getMethodName(m) { 
     if (isMethod(m)) {
-	return m[1];
+    return m[1];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodName is not a Method.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodName is not a Method.");
     }
 }				      
 function getMethodParams(m) { 
     if (isMethod(m)) {
-	return m[2];
+    return m[2];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodParams is not a Method.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodParams is not a Method.");
     }
 }				      
 function getMethodBody(m) { 
     if (isMethod(m)) {
-	return m[3];
+    return m[3];
     } else {
-	throw new Error("Interpreter error: "  +
-			"The argument of getMethodBody is not a Method.");
+    throw new Error("Interpreter error: "  +
+            "The argument of getMethodBody is not a Method.");
     }
 }				      
 
@@ -451,6 +476,10 @@ exports.isMethod = isMethod;
 exports.getMethodName = getMethodName;
 exports.getMethodParams = getMethodParams;
 exports.getMethodBody = getMethodBody;
+exports.createSuperMethodCall = createSuperMethodCall;
+exports.isSuperMethodCall = isSuperMethodCall;
+exports.getSuperMethodCallMethod = getSuperMethodCallMethod;
+exports.getSuperMethodCallArgs = getSuperMethodCallArgs;
 
 SLang.absyn = exports;
 }());
