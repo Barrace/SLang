@@ -1,8 +1,10 @@
 /* description: Grammar for Slang 3 */
 /*
-	AJ Healy && Andrew Stagg
+   Code is property of Dr. David Furcy of University of
+   Wisconsin - Oshkosh. Additions and features implemented by
+   and are property of Alec J. Healy of University of 
+   Wisconsin - Oshkosh.
 */
-
 /* lexical grammar */
 %lex
 
